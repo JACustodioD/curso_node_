@@ -28,12 +28,13 @@ app.post("/users", function(req, res){
     password: req.body.password,
     password_confirmation: req.body.password_confirmation
   });
-  console.log(user.password_confirmation);
-  user.save(function(err){
+  user.save().then(function(){
+    res.send("Se creo el usuario de forma exitosa");
+  }, function(err){
     if(err){
       console.log(String(err));
+      res.send("No se pudo generar el usuario");
     }
-    res.send("guardamos tus datos");
   });
 });
 
