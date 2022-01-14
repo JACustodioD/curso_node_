@@ -1,22 +1,12 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
+var User = require("./models/user").User;
+
 var app = express();
-var Schema = mongoose.Schema;
-
-mongoose.connect("mongodb://localhost:27017/test");
-
-var userSchemaJSON = {
-  email:String,
-  password:String
-};
-
-var user_schema = new Schema(userSchemaJSON);
-
-var User = mongoose.model("User", user_schema);
 
 app.use("/estatico",express.static('public'));
-//app.use(bodyParser.json()); // peticiones con formato application/json
+app.use(bodyParser.json()); // peticiones con formato application/json
 app.use(bodyParser.urlencoded({extended:true})); // falso -> no parsing de arrays
 app.set("view engine", "jade");
 
@@ -40,3 +30,5 @@ app.post("/users", function(req, res){
 
 
 app.listen(8080);
+
+// db.createUser({ user: "jacd", pwd: "developer", roles: ["userAdminAnyDatabase", "dbAdminAnyDatabase", "readWriteAnyDatabase"]})
