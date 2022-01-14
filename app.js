@@ -22,7 +22,12 @@ app.get("/login", function(req, res){
 });
 
 app.post("/users", function(req, res){
-  var user = new User({email: req.body.email, password: req.body.password})
+  var user = new User({
+    email: req.body.email,
+    password: req.body.password,
+    password_confirmation: req.body.password_confirmation
+  });
+  console.log(user.password_confirmation);
   user.save(function(){
     res.send("guardamos tus datos");
   });
@@ -30,5 +35,3 @@ app.post("/users", function(req, res){
 
 
 app.listen(8080);
-
-// db.createUser({ user: "jacd", pwd: "developer", roles: ["userAdminAnyDatabase", "dbAdminAnyDatabase", "readWriteAnyDatabase"]})
