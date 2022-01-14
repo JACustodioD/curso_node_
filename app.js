@@ -14,11 +14,15 @@ app.get("/", function(req, res){
   res.render("index");
 });
 
-app.get("/login", function(req, res){
+app.get("/signup", function(req, res){
   User.find(function(err,doc){
     console.log(doc);
-    res.render("login");
+    res.render("signup");
   });
+});
+
+app.get("/login", function(req, res){
+  res.render("login");
 });
 
 app.post("/users", function(req, res){
@@ -36,6 +40,15 @@ app.post("/users", function(req, res){
       res.send("No se pudo generar el usuario");
     }
   });
+});
+
+app.post('/sessions', function(req, res){
+  User.findOne({email:req.body.email, password:req.body.password}, function(err,doc){
+    console.log(doc);
+  });
+
+  res.send("Aqui va ir la respuesta");
+
 });
 
 
