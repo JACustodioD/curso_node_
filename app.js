@@ -1,14 +1,21 @@
-var express = require("express");
-var bodyParser = require("body-parser");
-var mongoose = require("mongoose");
-var User = require("./models/user").User;
+const express = require("express");
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
+const User = require("./models/user").User;
+const session = require("express-session");
 
-var app = express();
+const app = express();
 
 app.use("/estatico",express.static('public'));
 app.use(bodyParser.json()); // peticiones con formato application/json
 app.use(bodyParser.urlencoded({extended:true})); // falso -> no parsing de arrays
 app.set("view engine", "jade");
+app.use(session({
+  secret: '12xv3e5da4748aEAsda54w3csda',
+  resave: false,
+  saveUninitialized: false
+}));
+
 
 app.get("/", function(req, res){
   res.render("index");
@@ -22,11 +29,12 @@ app.get("/signup", function(req, res){
 });
 
 app.get("/login", function(req, res){
+  console.log(req.session.user_id);
   res.render("login");
 });
 
 app.post("/users", function(req, res){
-  var user = new User({
+  const user = new User({
     email: req.body.email,
     username: req.body.username,
     password: req.body.password,
@@ -43,11 +51,11 @@ app.post("/users", function(req, res){
 });
 
 app.post('/sessions', function(req, res){
-  User.findOne({email:req.body.email, password:req.body.password}, function(err,doc){
-    console.log(doc);
+  User.findOne({email:req.body.email, password:req.body.password}, function(err,user){
+    req.session.user_id = user._id;
+    res.send("Aqui va ir la respuesta");
   });
 
-  res.send("Aqui va ir la respuesta");
 
 });
 
