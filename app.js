@@ -3,7 +3,8 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const User = require("./models/user").User;
 const session = require("express-session");
-
+const router_app = require("./routes_app");
+const session_middleware = require("./middlewares/session");
 const app = express();
 
 app.use("/estatico",express.static('public'));
@@ -16,7 +17,11 @@ app.use(session({
   saveUninitialized: false
 }));
 
+/* /app */
+app.use("/app", session_middleware);
+app.use("/app", router_app);
 
+/* / */
 app.get("/", function(req, res){
   res.render("index");
 });
