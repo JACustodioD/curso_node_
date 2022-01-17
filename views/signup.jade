@@ -1,17 +1,21 @@
 extends ./layout.jade
 block contenido
-  form(action="/users", method="POST")
-    div(class="form-group")
-      label(for="text") Nombre de usuarios
-      input(type="text", id="username", name="username", placeholder="Nombre de usuario", class="form-control")
-    div(class="form-group")
-      label(for="email") Email
-      input(type="text", id="email", name="email", placeholder="Email", class="form-control")
-    div(class="form-group")
-      label(for="password") Contraseña
-      input(type="password", id="password", name="password", class="form-control")
-    div(class="form-group")
-      label(for="password_confirmation") Confirma tu contraseña
-      input(type="password", id="password_confirmation", name="password_confirmation", class="form-control")
-    div
-      input(type="submit", value="Enviar", class="btn btn-success")
+  div(class="col-md-6 remove-float center-block big-top-space")
+    form(action="/users", method="POST")
+      div(class="form-group")
+        label(for="text") Nombre de usuarios
+        input(type="text", id="username", name="username", placeholder="Nombre de usuario", class="form-control")
+      div(class="form-group")
+        label(for="email") Email
+        input(type="text", id="email", name="email", placeholder="Email", class="form-control")
+      div(class="form-group")
+        label(for="password") Contraseña
+        input(type="password", id="password", name="password", class="form-control")
+      div(class="form-group")
+        label(for="password_confirmation") Confirma tu contraseña
+        input(type="password", id="password_confirmation", name="password_confirmation", class="form-control")
+      div(class="row")
+        div("col-12 col-md-6")
+          div(class="top-space")
+            input(type="submit", value="Enviar", class="btn btn-success")
+            
