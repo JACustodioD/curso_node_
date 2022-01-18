@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const User = require("./models/user").User;
-const session = require("express-session");
+const cookieSession = require("cookie-session");
 const router_app = require("./routes_app");
 const session_middleware = require("./middlewares/session");
 const app = express();
@@ -11,11 +11,17 @@ app.use("/estatico",express.static('public'));
 app.use(bodyParser.json()); // peticiones con formato application/json
 app.use(bodyParser.urlencoded({extended:true})); // falso -> no parsing de arrays
 app.set("view engine", "jade");
-app.use(session({
-  secret: '12xv3e5da4748aEAsda54w3csda',
-  resave: false,
-  saveUninitialized: false
+
+app.use(cookieSession({
+  name:"sesion",
+  keys: ["llavel-1", "llave-2"]
 }));
+
+// app.use(session({
+//   secret: '12xv3e5da4748aEAsda54w3csda',
+//   resave: false,
+//   saveUninitialized: false
+// }));
 
 /* /app */
 app.use("/app", session_middleware);
